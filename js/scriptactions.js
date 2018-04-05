@@ -102,16 +102,15 @@ $('neg-action').onclick = function(){
     };
     //  if hover over a matrix value, highlight/outline background color 
     //  if clicked on a matrix value, multiply by -2
-    var convertNeg = "-" + $('neg').value;
-    $('m00').onclick = function() { this.value = this.value * convertNeg;  refreshVals(); };
-    $('m01').onclick = function() { this.value = this.value * convertNeg;  refreshVals(); };
-    $('m02').onclick = function() { this.value = this.value * convertNeg;  refreshVals(); };
-    $('m10').onclick = function() { this.value = this.value * convertNeg;  refreshVals(); };
-    $('m11').onclick = function() { this.value = this.value * convertNeg;  refreshVals(); };
-    $('m12').onclick = function() { this.value = this.value * convertNeg;  refreshVals(); };
-    $('m20').onclick = function() { this.value = this.value * convertNeg;  refreshVals(); };
-    $('m21').onclick = function() { this.value = this.value * convertNeg;  refreshVals(); };
-    $('m22').onclick = function() { this.value = this.value * convertNeg;  refreshVals(); };
+    $('m00').onclick = function() { this.value = this.value * $('neg').value;  refreshVals(); };
+    $('m01').onclick = function() { this.value = this.value * $('neg').value;  refreshVals(); };
+    $('m02').onclick = function() { this.value = this.value * $('neg').value;  refreshVals(); };
+    $('m10').onclick = function() { this.value = this.value * $('neg').value;  refreshVals(); };
+    $('m11').onclick = function() { this.value = this.value * $('neg').value;  refreshVals(); };
+    $('m12').onclick = function() { this.value = this.value * $('neg').value;  refreshVals(); };
+    $('m20').onclick = function() { this.value = this.value * $('neg').value;  refreshVals(); };
+    $('m21').onclick = function() { this.value = this.value * $('neg').value;  refreshVals(); };
+    $('m22').onclick = function() { this.value = this.value * $('neg').value;  refreshVals(); };
 
 };
 

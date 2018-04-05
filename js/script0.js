@@ -1,3 +1,5 @@
+console.log("hello");
+
 var transformador;
 var transformador0;
 var transformador1;
@@ -9,13 +11,10 @@ $('playMode').onclick = function(){
   $("m-holder").removeAttribute("style", "display: none;");
   $("actions").removeAttribute("style", "visibility: hidden;");
   $("button-contain").removeAttribute("style", "visibility: hidden;");
-
-  
 };
 
 $("story-mode").onclick = function(){
   $("choose-txt").setAttribute("style", "display: block;");
-  // $('choose-img').setAttribute("style", "height: 30vh;");
   $("canvas").setAttribute("style", "display: none;");
   $("canvas0").setAttribute("style", "display: none;");
   $("m-holder").setAttribute("style", "display: none;");
@@ -175,17 +174,10 @@ CanvasImage.prototype.hoverPixel = function(e, canv, x1, y1, x2, y2) {
   }
   var pos = findPos( canv );    
 
-  // function rgbToHex(r, g, b) {
-  //   if (r > 255 || g > 255 || b > 255)
-  //       throw "Invalid color component";
-  //   return ((r << 16) | (g << 8) | b).toString(16);
-  // }
   var mouseX = e.pageX - pos.x;
   var mouseY = e.pageY - pos.y;
   var pxData = this.context.getImageData(mouseX, mouseY, 9, 9).data;
-  // var hex = "#" + ("000000" + rgbToHex(pxData[0], pxData[1], pxData[2])).slice(-6);
 
-  // $('pxl-hex').innerHTML = hex;
   // $('pixel').setAttribute("style", "background-color: rgb(" + pxData[16] + "," + pxData[17] + "," + pxData[18] + ");");  
   // $('pxR').setAttribute("style", "background-color: rgb(" + pxData[16] + ",0,0);");  
   // $('pxG').setAttribute("style", "background-color: rgb(0," + pxData[17] + ",0);");  
@@ -303,24 +295,5 @@ $("canvas0").onmouseover = function(){
 
 // ID SELECTOR HELP
 function $(id) {return document.getElementById(id)};
-
-
-
-// function RgbMode() {
-//     var d = new Date();
-//     document.getElementById("demo").innerHTML = d.toLocaleTimeString();
-// }
-// $('colorMode').onclick = function(){
-  
-//     $('times').innerHTML = "*";
-//     $('rgb-img').setAttribute("style", "opacity: 1;");
-//     $('times').classList.add("fadeOut");
-//     $('rgb-img').classList.add("fadeOut");
-
-//     $('rgb-r').innerHTML = "  R  ";
-//     $('rgb-g').innerHTML = "  G  ";
-//     $('rgb-b').innerHTML = "  B  ";
-
-// };
 
 
