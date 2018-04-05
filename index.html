@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Matrix Pix</title>
+
+  <!-- original code found at: http://www.phpied.com/files/canvas/matrix.html -->
+
+  <style>
+  #title-img{
+    height: 100px;
+  }
+  #title{
+    float:left;
+    clear:none;
+  }
+  #modes form{
+    clear: both;
+  }
+  .bg {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    display: inline-block;
+    float: left;
+  }
+  canvas {
+    width: 300px;
+    height: 300px;
+    border: 1px solid black; 
+    image-rendering: pixelated;
+  }
+  #pixel{
+    width: 94px;
+    height: 90px;
+    border: 1px solid black;
+  }
+  #button-contain{
+    position: absolute;
+    top: 100px;
+    right: 0;
+  }
+  #buttons {
+    width: 100px;
+    height: 493px;
+    background-image: url("././img/wiggle-bg0.jpg");
+    overflow-x: hidden;
+  }
+  .prev-filter{
+    width: 70px;
+    height: 60px;
+    margin-left: 5px;
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
+    background-color: black;
+    font-family: monospace;
+    font-size: 8px;
+    color: chartreuse;
+  }
+  .matrixbox input{
+    width: 95px;
+    height: 95px;
+    font-size: 30px;
+    text-align: center;
+    background-color: black;
+    font-family: monospace;
+    color: chartreuse;
+    text-shadow: 1px 1px dimgray;
+  }
+  .matrixbox input:hover{
+    background-color: midnightblue;
+  }
+  .matrixboxholder {
+    float: left;
+    padding-left: 4px;
+  }
+  .input-txt{
+    position: absolute;
+    font-size: 9px;
+    background-color: black;
+    font-family: monospace;
+    color: chartreuse;
+    text-shadow: 1px 1px dimgray;
+    margin-top:2px;
+    margin-left:2px;
+  }
+  #actions{
+    position: absolute;
+    top: 100px;
+    right: 100px;
+  }
+  .action{
+    width: 100px;
+    height: 70px;
+  }
+  .action:hover{
+    background-image: url('././img/wiggle-bg0.jpg');
+  }
+  .symbol-img{
+    height: 60px;
+    position: absolute;
+    margin-top: -30px; 
+    margin-left: -20px;
+  }
+  #choose-img{
+    float: left;
+    clear: both;
+    width: 300px;
+    height: 100px;
+    background-color: linen;
+    overflow-x: hidden;
+  }
+  .integer-action{
+    width: 60px; 
+    height: 40px; 
+    font-size: 40px; 
+    float: right;
+  }
+  .integer-action-img{
+    float: left; 
+    margin-top: 15px; 
+    margin-left: -45px; 
+    height: 20px;
+  }
+  #threexthree{
+    margin-left: -16px; 
+    margin-top: -20px; 
+  }
+  #threexthree div{
+    width: 50px;
+    height: 50px;
+    border: 0.25px solid black; 
+    float: left;
+  }
+  .pxRGB{
+    width: 30px;
+    height: 7px;
+    border: 1px solid black;
+    float: left;
+  }
+  </style>
+
+</head>
+
+<body>
+
+<label for="canvas" id="title"><img id="title-img" src="img/title1.png"/></label>
+<br><br><form id="modes">
+  <div class="mode" id="story-mode">
+    <input type="radio" name="mode" id="storyMode">
+    <label for="storyMode">Story mode (not ready yet)</label>
+  </div>
+  <div class="mode" id="play-mode">
+    <input type="radio" name="mode" id="playMode" checked>
+    <label for="playMode">Play mode</label>
+  </div>
+</form>
+
+<br><br>
+
+<div class="bg">
+<canvas id="canvas"></canvas>
+</div>
+
+<pre id="fn" style="float: left; padding-left: 20px; display: none;">0, 0, 0<br>0, 1, 0<br>0, 0, 0</pre>
+
+<div class="matrixboxholder" id="m-holder">
+  <div class="matrixbox" id="m">
+    <!-- <span id="l-brack">[</span> -->
+    <!-- <br><br> -->
+      <!-- <span id='rgb-r'></span> -->
+      <span id="m00-txt" class="input-txt"></span>
+      <input id="m00" min="-99" max="99" type="number" value="0" class="matrixinput">
+
+      <span id="m01-txt" class="input-txt"></span>
+      <input id="m01" min="-99" max="99" type="number" value="0" class="matrixinput">
+
+      <span id="m02-txt" class="input-txt"></span>
+      <input id="m02" min="-99" max="99" type="number" value="0" class="matrixinput">
+    <br>
+      <!-- <span id='rgb-g'></span> -->
+      <span id="m10-txt" class="input-txt"></span>
+      <input id="m10" min="-99" max="99" type="number" value="0" class="matrixinput">
+      
+      <span id="m11-txt" class="input-txt"></span>
+      <input id="m11" min="-99" max="99" type="number" value="1" class="matrixinput">
+      
+      <span id="m12-txt" class="input-txt"></span>
+      <input id="m12" min="-99" max="99" type="number" value="0" class="matrixinput">
+    <br>
+      <!-- <span id='rgb-b'></span> -->
+      <span id="m20-txt" class="input-txt"></span>
+      <input id="m20" min="-99" max="99" type="number" value="0" class="matrixinput">
+      
+      <span id="m21-txt" class="input-txt"></span>
+      <input id="m21" min="-99" max="99" type="number" value="0" class="matrixinput">
+      
+      <span id="m22-txt" class="input-txt"></span>
+      <input id="m22" min="-99" max="99" type="number" value="0" class="matrixinput">
+    <!-- <span id="r-brack">]</span> -->
+    <!-- <span id="times"></span> -->
+    <!-- <img id="rgb-img" src="/img/rgb.png"> -->
+  </div> <!-- .matrixbox -->  
+  <!-- <br> -->
+  <!-- <button id="submit-matrix-val">Submit changes</button> -->
+</div> <!-- .matrixboxholder -->
+
+
+
+<div class="bg">
+  <canvas id="canvas0"></canvas>
+</div>
+
+
+
+<div id="button-contain">
+  <label for="buttons">Recipes</label><br>
+  <div id="buttons"></div>
+</div>
+
+<div id="actions">
+  <label for="actions">Actions</label><br>
+  <button class="action" id="cursor">
+    <img height="60px" class="cursor-img" id="cursor-img" src="img/pointer.png">
+  </button>
+  <br>
+  <button class="action" id="zed-action">
+    <img class="symbol-img" id="zed-img" src="img/zero.png">
+    <img class="symbol-img" id="zed-img copy" src="img/zero.png">
+  </button>
+  <br>
+  <button class="action" id="pos-action">
+    <img class="symbol-img integer-action-img" id="pos-img" src="img/times.png">
+    <img class="symbol-img integer-action-img" id="pos-img copy" src="img/times.png">
+    <input class="integer-action" id="pos" min="1" max="9" type="number" value="5">
+  </button>
+  <br>
+  <button class="action" id="neg-action">
+    <img class="symbol-img integer-action-img" id="neg-img" src="img/times.png">
+    <img class="symbol-img integer-action-img" id="neg-img copy" src="img/times.png">
+    <input class="integer-action" id="neg" min="-9" max="-1" type="number" value="-5">
+  </button>
+  <br>
+  <button class="action" id="rand-action">
+    <img height="60px" class="rand-img" id="rand-img" src="img/random.png">
+  </button>
+  <br>
+  <button class="action" id="reset">Reset</button>
+  <br>
+  <button class="action" id="print-action">
+    <img height="60px" class="print-img" id="print-img" src="img/print.png">
+  </button>
+</div>
+
+<div id="choose-img">
+  <span id="choose-txt">Choose an image</span>
+  <div id="img-gallery">
+    <img src="img/a.jpg" onclick="imgChoosen('img/a.jpg', 'canvas')">
+    <img src="img/b.jpg" onclick="imgChoosen('img/b.jpg', 'canvas')">
+    <img src="img/c.jpg" onclick="imgChoosen('img/c.jpg', 'canvas')">
+    <img src="img/d.jpg" onclick="imgChoosen('img/d.jpg', 'canvas')">
+    <img src="img/bread-60.png" onclick="imgChoosen('img/bread-60.png', 'canvas')">
+    <img src="img/e.jpg" onclick="imgChoosen('img/e.jpg', 'canvas')">
+    <img src="img/f.jpg" onclick="imgChoosen('img/f.jpg', 'canvas')">
+    <img src="img/g.jpg" onclick="imgChoosen('img/g.jpg', 'canvas')">
+    <img src="img/h.jpg" onclick="imgChoosen('img/h.jpg', 'canvas')">
+    <img src="img/i.jpg" onclick="imgChoosen('img/i.jpg', 'canvas')">
+    <img src="img/j.jpg" onclick="imgChoosen('img/j.jpg', 'canvas')">
+    <img src="img/k.png" onclick="imgChoosen('img/k.png', 'canvas')">
+    <img src="img/l.gif" onclick="imgChoosen('img/l.gif', 'canvas')">
+    <img src="img/n.jpg" onclick="imgChoosen('img/n.jpg', 'canvas')">
+    <img src="img/o.jpg" onclick="imgChoosen('img/o.jpg', 'canvas')">
+    <img src="img/p.jpg" onclick="imgChoosen('img/p.jpg', 'canvas')">
+    <img src="img/q.jpg" onclick="imgChoosen('img/q.jpg', 'canvas')">
+    <img src="img/r.jpg" onclick="imgChoosen('img/r.jpg', 'canvas')">
+  </div>
+</div>
+
+</body>
+
+<script type="text/javascript" src="script0.js"></script>
+<script type="text/javascript" src="scriptrecipes.js"></script>
+<script type="text/javascript" src="scriptactions.js"></script>
+<script type="text/javascript" src="scriptinputchange.js"></script>
+
+</html>
