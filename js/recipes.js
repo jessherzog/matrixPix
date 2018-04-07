@@ -129,32 +129,24 @@ var matrices = [
   }
 ];
 
-matrices.forEach(function(m) {
+function addRecipeButtons() {
 
-  var b = document.createElement('button');
-  b.title = m.name;
-  b.className = "prev-filter";
-  b.id = "pfil-" + m.name;
-  b.innerHTML = m.data[0] + '<br>' + m.data[1] + '<br>' + m.data[2];
+  matrices.forEach(function(m) {
 
-  b.onclick = function() {
-    transformador0.convolve(m.data, m.divisor, m.offset);
+    var b = document.createElement('button');
+    b.title = m.name;
+    b.className = "prev-filter";
+    b.id = "pfil-" + m.name;
+    b.innerHTML = m.data[0] + '<br>' + m.data[1] + '<br>' + m.data[2];
 
-    $('fn').innerHTML = m.data[0] + '<br>' + m.data[1] + '<br>' + m.data[2];
+    b.onclick = function() {
+      setConvolutionMatrix(m.data, m.divisor, m.offset);
+    };
+    
+    $('buttons').appendChild(b);
+    $('buttons').appendChild(document.createElement('br'));
 
-    $('m00').value = m.data[0][0];
-    $('m01').value = m.data[0][1];
-    $('m02').value = m.data[0][2];
+  });  
 
-    $('m10').value = m.data[1][0];
-    $('m11').value = m.data[1][1];
-    $('m12').value = m.data[1][2];
+}
 
-    $('m20').value = m.data[2][0];
-    $('m21').value = m.data[2][1];
-    $('m22').value = m.data[2][2];
-  };
-  $('buttons').appendChild(b);
-  $('buttons').appendChild(document.createElement('br'));
-
-});

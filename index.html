@@ -3,142 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Matrix Pix</title>
-
-  <!-- original convolution code: http://www.phpied.com/files/canvas/matrix.html -->
-
-  <style>
-  #title-img{
-    height: 100px;
-  }
-  #title{
-    float:left;
-    clear:none;
-  }
-  #modes form{
-    clear: both;
-  }
-  .bg {
-    padding-top: 0px;
-    padding-bottom: 0px;
-    display: inline-block;
-    float: left;
-  }
-  canvas {
-    width: 300px;
-    height: 300px;
-    border: 1px solid black; 
-    image-rendering: pixelated;
-  }
-  #pixel{
-    width: 94px;
-    height: 90px;
-    border: 1px solid black;
-  }
-  #button-contain{
-    position: absolute;
-    top: 100px;
-    right: 0;
-  }
-  #buttons {
-    width: 100px;
-    height: 493px;
-    background-image: url("././img/wiggle-bg0.jpg");
-    overflow-x: hidden;
-  }
-  .prev-filter{
-    width: 70px;
-    height: 60px;
-    margin-left: 5px;
-    margin-top: 2.5px;
-    margin-bottom: 2.5px;
-    background-color: black;
-    font-family: monospace;
-    font-size: 8px;
-    color: chartreuse;
-  }
-  .matrixbox input{
-    width: 95px;
-    height: 95px;
-    font-size: 30px;
-    text-align: center;
-    background-color: black;
-    font-family: monospace;
-    color: chartreuse;
-    text-shadow: 1px 1px dimgray;
-  }
-  .matrixbox input:hover{
-    background-color: midnightblue;
-  }
-  .matrixboxholder {
-    float: left;
-    padding-left: 4px;
-  }
-  .input-txt{
-    position: absolute;
-    font-size: 9px;
-    background-color: black;
-    font-family: monospace;
-    color: chartreuse;
-    text-shadow: 1px 1px dimgray;
-    margin-top:2px;
-    margin-left:2px;
-  }
-  #actions{
-    position: absolute;
-    top: 100px;
-    right: 100px;
-  }
-  .action{
-    width: 100px;
-    height: 70px;
-  }
-  .action:hover{
-    background-image: url('././img/wiggle-bg0.jpg');
-  }
-  .symbol-img{
-    height: 60px;
-    position: absolute;
-    margin-top: -30px; 
-    margin-left: -20px;
-  }
-  #choose-img{
-    float: left;
-    clear: both;
-    width: 300px;
-    height: 100px;
-    background-color: linen;
-    overflow-x: hidden;
-  }
-  .integer-action{
-    width: 60px; 
-    height: 40px; 
-    font-size: 40px; 
-    float: right;
-  }
-  .integer-action-img{
-    float: left; 
-    margin-top: 15px; 
-    margin-left: -45px; 
-    height: 20px;
-  }
-  #threexthree{
-    margin-left: -16px; 
-    margin-top: -20px; 
-  }
-  #threexthree div{
-    width: 50px;
-    height: 50px;
-    border: 0.25px solid black; 
-    float: left;
-  }
-  .pxRGB{
-    width: 30px;
-    height: 7px;
-    border: 1px solid black;
-    float: left;
-  }
-  </style>
-
+  <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
 <body>
@@ -160,11 +25,12 @@
 
   <!-- Identity image -->
   <div class="bg">
-    <canvas id="canvas"></canvas>
+    <canvas id="identity-image"></canvas>
+    <canvas id="identity-image-overlay"></canvas>
   </div>
 
   <!-- Matrix data, not visible -->
-  <pre id="fn" style="float: left; padding-left: 20px; display: none;">0, 0, 0<br>0, 1, 0<br>0, 0, 0</pre>
+  <pre id="fn" style="float: left; padding-left: 20px; display: block;">0, 0, 0<br>0, 1, 0<br>0, 0, 0</pre>
 
   <div class="matrixboxholder" id="m-holder">
     <div class="matrixbox" id="m">
@@ -199,7 +65,8 @@
 
   <!-- Changed image -->
   <div class="bg">
-    <canvas id="canvas0"></canvas>
+    <canvas id="changed-image"></canvas>
+    <canvas id="changed-image-overlay"></canvas>
   </div>
 
   <!-- Recipes/ presets - far right -->
@@ -247,33 +114,37 @@
   <div id="choose-img">
     <span id="choose-txt">Choose an image</span>
     <div id="img-gallery">
-      <img src="img/a.jpg" onclick="imgChoosen('img/a.jpg', 'canvas')">
-      <img src="img/b.jpg" onclick="imgChoosen('img/b.jpg', 'canvas')">
-      <img src="img/c.jpg" onclick="imgChoosen('img/c.jpg', 'canvas')">
-      <img src="img/d.jpg" onclick="imgChoosen('img/d.jpg', 'canvas')">
-      <img src="img/bread-60.png" onclick="imgChoosen('img/bread-60.png', 'canvas')">
-      <img src="img/e.jpg" onclick="imgChoosen('img/e.jpg', 'canvas')">
-      <img src="img/f.jpg" onclick="imgChoosen('img/f.jpg', 'canvas')">
-      <img src="img/g.jpg" onclick="imgChoosen('img/g.jpg', 'canvas')">
-      <img src="img/h.jpg" onclick="imgChoosen('img/h.jpg', 'canvas')">
-      <img src="img/i.jpg" onclick="imgChoosen('img/i.jpg', 'canvas')">
-      <img src="img/j.jpg" onclick="imgChoosen('img/j.jpg', 'canvas')">
-      <img src="img/k.png" onclick="imgChoosen('img/k.png', 'canvas')">
-      <img src="img/l.gif" onclick="imgChoosen('img/l.gif', 'canvas')">
-      <img src="img/n.jpg" onclick="imgChoosen('img/n.jpg', 'canvas')">
-      <img src="img/o.jpg" onclick="imgChoosen('img/o.jpg', 'canvas')">
-      <img src="img/p.jpg" onclick="imgChoosen('img/p.jpg', 'canvas')">
-      <img src="img/q.jpg" onclick="imgChoosen('img/q.jpg', 'canvas')">
-      <img src="img/r.jpg" onclick="imgChoosen('img/r.jpg', 'canvas')">
+      <img src="img/a.jpg" onclick="onGalleryImageChoosen('img/a.jpg')">
+      <img src="img/b.jpg" onclick="onGalleryImageChoosen('img/b.jpg')">
+      <img src="img/c.jpg" onclick="onGalleryImageChoosen('img/c.jpg')">
+      <img src="img/d.jpg" onclick="onGalleryImageChoosen('img/d.jpg')">
+      <img src="img/bread-60.png" onclick="onGalleryImageChoosen('img/bread-60.png')">
+      <img src="img/e.jpg" onclick="onGalleryImageChoosen('img/e.jpg')">
+      <img src="img/f.jpg" onclick="onGalleryImageChoosen('img/f.jpg')">
+      <img src="img/g.jpg" onclick="onGalleryImageChoosen('img/g.jpg')">
+      <img src="img/h.jpg" onclick="onGalleryImageChoosen('img/h.jpg')">
+      <img src="img/i.jpg" onclick="onGalleryImageChoosen('img/i.jpg')">
+      <img src="img/j.jpg" onclick="onGalleryImageChoosen('img/j.jpg')">
+      <img src="img/k.png" onclick="onGalleryImageChoosen('img/k.png')">
+      <img src="img/l.gif" onclick="onGalleryImageChoosen('img/l.gif')">
+      <img src="img/n.jpg" onclick="onGalleryImageChoosen('img/n.jpg')">
+      <img src="img/o.jpg" onclick="onGalleryImageChoosen('img/o.jpg')">
+      <img src="img/p.jpg" onclick="onGalleryImageChoosen('img/p.jpg')">
+      <img src="img/q.jpg" onclick="onGalleryImageChoosen('img/q.jpg')">
+      <img src="img/r.jpg" onclick="onGalleryImageChoosen('img/r.jpg')">
     </div>
   </div>
 
 
 </body>
+<!--
+<script type="text/javascript" src="js/actions.js"></script>
+ -->
 
-<script type="text/javascript" src="js/script0.js"></script>
-<script type="text/javascript" src="js/scriptrecipes.js"></script>
-<script type="text/javascript" src="js/scriptactions.js"></script>
-<script type="text/javascript" src="js/scriptinputchange.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+<script type="text/javascript" src="js/CanvasImage.js"></script>
+<script type="text/javascript" src="js/matrix.js"></script>
+<script type="text/javascript" src="js/recipes.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 
 </html>
