@@ -98,6 +98,21 @@ function installIdentityHandlers() {
     context.lineWidth=1;
 
     showMatrixColors(pxData);
+
+    ///////////
+
+    var zoomcanvas = $('zoom-identity');
+    var zoomcontext = zoomcanvas.getContext('2d');
+
+    zoomcontext.imageSmoothingEnabled = false; 
+    zoomcontext.mozImageSmoothingEnabled = false; 
+    zoomcontext.webkitImageSmoothingEnabled = false; 
+    zoomcontext.msImageSmoothingEnabled = false; 
+
+    zoomcontext.drawImage(
+      $("identity-image"), Math.abs(pos.x - 5), Math.abs(pos.y - 5), 10, 10,
+      0, 0, 300, 150
+    );
   };
 
   function showMatrixColors(pxData) {
@@ -118,8 +133,6 @@ function installIdentityHandlers() {
     context.clearRect(0, 0, canvas.width, canvas.height);
   }
 }
-
-
 
 function main() {
   setIdentityImage("img/a.jpg");

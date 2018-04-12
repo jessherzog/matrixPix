@@ -33,8 +33,12 @@
 
     <div class="matrixboxholder" id="m-holder">
 
-      <div style="width: 110px; height: 110px; background-color: linen; float: left; position: relative; margin-right: 5px"></div>
-      <div style="width: 110px; height: 110px; background-color: linen; float: left; position: relative; margin-left: 5px"></div>
+      <div class="zoom" style="float: left; position: relative; margin-right: 5px">
+        <canvas id="zoom-identity" style="width: 110px; height: 108px;"></canvas>
+      </div>
+      <div class="zoom" style="float: left; position: relative; margin-left: 5px">
+        <canvas id="zoom-changed" style="width: 110px; height: 108px;"></canvas>
+      </div>
 
       <div class="matrixbox" id="m">
           <span id="m00-txt" class="input-txt"></span>
