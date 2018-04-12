@@ -6,7 +6,7 @@ let currentOffset;
 
 
 /////////////////////////////////////
-// API
+// Set-up
 
 function setIdentityImage(src) {
   identityImage = new CanvasImage( $("identity-image"), src);
@@ -20,6 +20,7 @@ function setConvolutionMatrix(matrix, divisor, offset) {
   currentMatrix = matrix;
   currentDivisor = divisor;
   currentOffset = offset;
+
   changedImage.reset();
   changedImage.convolve(matrix, divisor, offset);
 
@@ -37,48 +38,17 @@ function setConvolutionMatrix(matrix, divisor, offset) {
 }
 
 
-function showIdentityHover(x, y) {
-  const canvas = $('identity-image-overlay');
-  const context = canvas.getContext('2d'); 
-
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  context.beginPath();
-  context.moveTo(canvas.width, 0);
-  context.lineTo(x +10, y +10);
-  context.moveTo(canvas.width, canvas.height);
-  context.lineTo(x +10, y +10);
-  context.stroke();
-
-}
-
-function showMatrixColors(pxData) {
-  $('m00').setAttribute("style", "background-color: rgb(" + pxData[0] + "," + pxData[1] + "," + pxData[2] + ");"); 
-  $('m01').setAttribute("style", "background-color: rgb(" + pxData[4] + "," + pxData[5] + "," + pxData[6] + ");"); 
-  $('m02').setAttribute("style", "background-color: rgb(" + pxData[8] + "," + pxData[9] + "," + pxData[10] + ");"); 
-  $('m10').setAttribute("style", "background-color: rgb(" + pxData[12] + "," + pxData[13] + "," + pxData[14] + ");"); 
-  $('m11').setAttribute("style", "background-color: rgb(" + pxData[16] + "," + pxData[17] + "," + pxData[18] + ");"); 
-  $('m12').setAttribute("style", "background-color: rgb(" + pxData[20] + "," + pxData[21] + "," + pxData[22] + ");"); 
-  $('m20').setAttribute("style", "background-color: rgb(" + pxData[24] + "," + pxData[25] + "," + pxData[26] + ");"); 
-  $('m21').setAttribute("style", "background-color: rgb(" + pxData[28] + "," + pxData[29] + "," + pxData[30] + ");"); 
-  $('m22').setAttribute("style", "background-color: rgb(" + pxData[32] + "," + pxData[33] + "," + pxData[34] + ");"); 
-}
-
-
-
-
-
-
 /////////////////////////////////////
 // Event Handlers
 
 function onGalleryImageChoosen(src) {
+
   setIdentityImage(src);
   setChangedImage(src);
 
-  setTimeout( ()=>{
- console.log(currentMatrix,currentDivisor,currentOffset);
-  setConvolutionMatrix(currentMatrix, currentDivisor, currentOffset);
-}, 1000);
+  setTimeout( () => {
+    setConvolutionMatrix(currentMatrix, currentDivisor, currentOffset);
+  }, 1000);
   
 }
 
@@ -87,28 +57,71 @@ function onGalleryImageChoosen(src) {
 // Setup
 
 function installIdentityHandlers() {
-  $("identity-image-overlay").onmousemove = (e)=>{
-    console.log("move");
-    const mouseX = e.pageX - $("identity-image").offsetLeft;
-    const mouseY = e.pageY - $("identity-image").offsetTop;
+  $("identity-image-overlay").onmousemove = (e) => {
+
+    document.body.style.cursor = 'none';
     
-    showIdentityHover(mouseX, mouseY);
+    const canvas = $('identity-image-overlay');
+    const context = canvas.getContext('2d'); 
 
-    var pxData = identityImage.context.getImageData(mouseX, mouseY, 9, 9).data;
+    var cm = new CanvasMouse(context, {
+      handleScale: true,
+      handleTransforms: true
+    });
+
+    var pos = cm.getPos(e);
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    // context.beginPath();
+    // context.moveTo(canvas.width, 0);
+    // context.lineTo(pos.x+3, pos.y-13);
+    // context.moveTo(canvas.width, canvas.height);
+    // context.lineTo(pos.x+3, pos.y);
+    // context.stroke();
+
+    var pxData = identityImage.context.getImageData(pos.x, pos.y, 3, 3).data;
+
+    // context.lineWidth=0.25;
+    
+    context.strokeRect(pos.x-21, pos.y-13, 8, 4);
+    context.strokeRect(pos.x-13, pos.y-13, 8, 4);
+    context.strokeRect(pos.x-5, pos.y-13, 8, 4);
+
+    context.strokeRect(pos.x-21, pos.y-9, 8, 4);
+    context.strokeRect(pos.x-13, pos.y-9, 8, 4);    
+    context.strokeRect(pos.x-5, pos.y-9, 8, 4);
+    
+    context.strokeRect(pos.x-21, pos.y-5, 8, 4);
+    context.strokeRect(pos.x-13, pos.y-5, 8, 4);
+    context.strokeRect(pos.x-5, pos.y-5, 8, 4);
+
+    context.lineWidth=1;
+
     showMatrixColors(pxData);
-
   };
 
+  function showMatrixColors(pxData) {
+    $('m00').setAttribute("style", "background-color: rgb(" + pxData[0] + "," + pxData[1] + "," + pxData[2] + ");"); 
+    $('m01').setAttribute("style", "background-color: rgb(" + pxData[4] + "," + pxData[5] + "," + pxData[6] + ");"); 
+    $('m02').setAttribute("style", "background-color: rgb(" + pxData[8] + "," + pxData[9] + "," + pxData[10] + ");"); 
+    $('m10').setAttribute("style", "background-color: rgb(" + pxData[12] + "," + pxData[13] + "," + pxData[14] + ");"); 
+    $('m11').setAttribute("style", "background-color: rgb(" + pxData[16] + "," + pxData[17] + "," + pxData[18] + ");"); 
+    $('m12').setAttribute("style", "background-color: rgb(" + pxData[20] + "," + pxData[21] + "," + pxData[22] + ");"); 
+    $('m20').setAttribute("style", "background-color: rgb(" + pxData[24] + "," + pxData[25] + "," + pxData[26] + ");"); 
+    $('m21').setAttribute("style", "background-color: rgb(" + pxData[28] + "," + pxData[29] + "," + pxData[30] + ");"); 
+    $('m22').setAttribute("style", "background-color: rgb(" + pxData[32] + "," + pxData[33] + "," + pxData[34] + ");"); 
+  }
+
   $("identity-image-overlay").onmouseleave = (e)=>{
-   //@todo clear identity hover
+    const canvas = $('identity-image-overlay');
+    const context = canvas.getContext('2d'); 
+    context.clearRect(0, 0, canvas.width, canvas.height);
   }
 }
 
 
 
 function main() {
-  console.log("hello_main");
-
   setIdentityImage("img/a.jpg");
   setChangedImage("img/a.jpg");
 
@@ -119,11 +132,6 @@ function main() {
 
 
 main();
-
-
-
-
-
 
 
 // SELECT + LOAD IMAGE
@@ -203,44 +211,3 @@ main();
 
 //   $("choose-txt").setAttribute("style", "display: none");
 // };
-
-
-
-// // MODES
-// $('playMode').onclick = function(){
-//   $("canvas").removeAttribute("style", "display: none;");
-//   $("canvas0").removeAttribute("style", "display: none;");
-//   $("m-holder").removeAttribute("style", "display: none;");
-//   $("actions").removeAttribute("style", "visibility: hidden;");
-//   $("button-contain").removeAttribute("style", "visibility: hidden;");
-// };
-
-// $("story-mode").onclick = function(){
-//   $("choose-txt").setAttribute("style", "display: block;");
-//   $("canvas").setAttribute("style", "display: none;");
-//   $("canvas0").setAttribute("style", "display: none;");
-//   $("m-holder").setAttribute("style", "display: none;");
-//   $("actions").setAttribute("style", "visibility: hidden;");
-//   $("button-contain").setAttribute("style", "visibility: hidden;");
-// };
-
-// PIXEL EYE DROPPER
-// $("identity-image").onmouseover = function(){
-//   this.onmousemove = function(e){
-//     identityImage.hoverPixel( e, $('canvas'), $('canvas').width, 0, $('canvas').width, $('canvas').height );
-//   };
-// };
-
-// $("changed-image").onmouseover = function(){
-//   this.onmousemove = function(e){
-//     transformador0.hoverPixel( e, $('canvas0'), 0, 0, 0, $('canvas0').height );
-//   };
-//   this.onclick = function(e){
-//     console.log("oo");
-//   };
-// };
-
-// // ID SELECTOR HELP
-
-
-

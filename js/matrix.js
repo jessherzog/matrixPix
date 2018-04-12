@@ -1,6 +1,9 @@
 console.log("matrix");
+
 function installMatrixHandlers() {
+
   console.log("installMatrixHandlers");
+
   $("m00").onchange = onMatrixChange;
   $("m01").onchange = onMatrixChange;
   $("m02").onchange = onMatrixChange;
@@ -14,7 +17,9 @@ function installMatrixHandlers() {
 
 
 function onMatrixChange() {
+
   console.log("matrixChange");
+  
   const a = $('m00').value;  
   const b = $('m01').value;  
   const c = $('m02').value;
@@ -34,8 +39,9 @@ function onMatrixChange() {
     ]
     ;
 
-  
   setConvolutionMatrix(matrix);
+
+  $('fn').innerHTML = matrix[0] + '<br>' + matrix[1] + '<br>' + matrix[2];
 
 }
 

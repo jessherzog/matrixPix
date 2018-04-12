@@ -137,14 +137,17 @@ function addRecipeButtons() {
     b.title = m.name;
     b.className = "prev-filter";
     b.id = "pfil-" + m.name;
-    b.innerHTML = m.data[0] + '<br>' + m.data[1] + '<br>' + m.data[2];
+    b.innerHTML = m.name;
+    // b.innerHTML = m.data[0] + '<br>' + m.data[1] + '<br>' + m.data[2];
 
     b.onclick = function() {
       setConvolutionMatrix(m.data, m.divisor, m.offset);
+      $('fn').innerHTML = m.data[0] + '<br>' + m.data[1] + '<br>' + m.data[2];
     };
     
     $('buttons').appendChild(b);
     $('buttons').appendChild(document.createElement('br'));
+
 
   });  
 

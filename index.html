@@ -11,139 +11,147 @@
   <!-- Header - logo, modes -->
   <label for="canvas" id="title"><img id="title-img" src="img/title1.png"/></label>
   <br><br><form id="modes">
-    <div class="mode" id="story-mode">
-      <input type="radio" name="mode" id="storyMode">
-      <label for="storyMode">Story mode (not ready yet)</label>
+    <div class="mode" id="lvl1-gray">
+      <input type="radio" name="mode" id="lvl1">
+      <label for="lvl1" style="font-family: 'system-ui';">Level 1: Grayscale</label>
     </div>
-    <div class="mode" id="play-mode">
-      <input type="radio" name="mode" id="playMode" checked>
-      <label for="playMode">Play mode</label>
+    <div class="mode" id="lvl2-color">
+      <input type="radio" name="mode" id="lvl2" checked>
+      <label for="lvl2" style="font-family: 'system-ui';">Level 2: Color</label>
     </div>
   </form>
 
   <br><br>
 
-  <!-- Identity image -->
-  <div class="bg">
-    <canvas id="identity-image"></canvas>
-    <canvas id="identity-image-overlay"></canvas>
-  </div>
+  <div id="bg-img">
 
-  <!-- Matrix data, not visible -->
-  <pre id="fn" style="float: left; padding-left: 20px; display: block;">0, 0, 0<br>0, 1, 0<br>0, 0, 0</pre>
+    <!-- Identity image -->
+    <div class="bg">
+      <canvas id="identity-image"></canvas>
+      <canvas id="identity-image-overlay"></canvas>
+    </div>
 
-  <div class="matrixboxholder" id="m-holder">
-    <div class="matrixbox" id="m">
-        <span id="m00-txt" class="input-txt"></span>
-        <input id="m00" min="-99" max="99" type="number" value="0" class="matrixinput">
+    <div class="matrixboxholder" id="m-holder">
 
-        <span id="m01-txt" class="input-txt"></span>
-        <input id="m01" min="-99" max="99" type="number" value="0" class="matrixinput">
+      <div style="width: 110px; height: 110px; background-color: linen; float: left; position: relative; margin-right: 5px"></div>
+      <div style="width: 110px; height: 110px; background-color: linen; float: left; position: relative; margin-left: 5px"></div>
 
-        <span id="m02-txt" class="input-txt"></span>
-        <input id="m02" min="-99" max="99" type="number" value="0" class="matrixinput"> 
-      <br>
-        <span id="m10-txt" class="input-txt"></span>
-        <input id="m10" min="-99" max="99" type="number" value="0" class="matrixinput">
-        
-        <span id="m11-txt" class="input-txt"></span>
-        <input id="m11" min="-99" max="99" type="number" value="1" class="matrixinput">
-        
-        <span id="m12-txt" class="input-txt"></span>
-        <input id="m12" min="-99" max="99" type="number" value="0" class="matrixinput">
-      <br>
-        <span id="m20-txt" class="input-txt"></span>
-        <input id="m20" min="-99" max="99" type="number" value="0" class="matrixinput">
-        
-        <span id="m21-txt" class="input-txt"></span>
-        <input id="m21" min="-99" max="99" type="number" value="0" class="matrixinput">
-        
-        <span id="m22-txt" class="input-txt"></span>
-        <input id="m22" min="-99" max="99" type="number" value="0" class="matrixinput">
+      <div class="matrixbox" id="m">
+          <span id="m00-txt" class="input-txt"></span>
+          <input id="m00" min="-99" max="99" type="number" value="0" class="matrixinput">
+
+          <span id="m01-txt" class="input-txt"></span>
+          <input id="m01" min="-99" max="99" type="number" value="0" class="matrixinput">
+
+          <span id="m02-txt" class="input-txt"></span>
+          <input id="m02" min="-99" max="99" type="number" value="0" class="matrixinput"> 
+        <br>
+          <span id="m10-txt" class="input-txt"></span>
+          <input id="m10" min="-99" max="99" type="number" value="0" class="matrixinput">
+          
+          <span id="m11-txt" class="input-txt"></span>
+          <input id="m11" min="-99" max="99" type="number" value="1" class="matrixinput">
+          
+          <span id="m12-txt" class="input-txt"></span>
+          <input id="m12" min="-99" max="99" type="number" value="0" class="matrixinput">
+        <br>
+          <span id="m20-txt" class="input-txt"></span>
+          <input id="m20" min="-99" max="99" type="number" value="0" class="matrixinput">
+          
+          <span id="m21-txt" class="input-txt"></span>
+          <input id="m21" min="-99" max="99" type="number" value="0" class="matrixinput">
+          
+          <span id="m22-txt" class="input-txt"></span>
+          <input id="m22" min="-99" max="99" type="number" value="0" class="matrixinput">
+      </div>
+    </div>
+
+    <!-- Changed image -->
+
+      <div class="bg">
+        <canvas id="changed-image"></canvas>
+        <canvas id="changed-image-overlay"></canvas>
+      </div>
+
+      <div id="actions">
+        <button class="action" id="rand-action">
+          <img height="60px" class="rand-img" id="rand-img" src="img/random.png">
+        </button>
+        <button class="action" id="reset">Reset</button>
+        <button class="action" id="print-action">
+          <img height="60px" class="print-img" id="print-img" src="img/print.png">
+        </button>
+      </div>
+
+
+    <!-- Recipes/ presets - far right -->
+    <div id="button-contain">
+      <label for="buttons" style="font-family: 'system-ui';">Recipes</label><br>
+      <div id="buttons"></div>
+    </div>
+
+    <!-- Image gallery -->
+    <div id="choose-img">
+      <span id="choose-txt" style="font-family: 'system-ui';">Choose an image</span>
+      <div id="img-gallery">
+        <img src="img/a.jpg" onclick="onGalleryImageChoosen('img/a.jpg')">
+        <img src="img/b.jpg" onclick="onGalleryImageChoosen('img/b.jpg')">
+        <img src="img/c.jpg" onclick="onGalleryImageChoosen('img/c.jpg')">
+        <img src="img/d.jpg" onclick="onGalleryImageChoosen('img/d.jpg')">
+        <img src="img/bread-60.png" onclick="onGalleryImageChoosen('img/bread-60.png')">
+        <img src="img/e.jpg" onclick="onGalleryImageChoosen('img/e.jpg')">
+        <img src="img/f.jpg" onclick="onGalleryImageChoosen('img/f.jpg')">
+        <img src="img/g.jpg" onclick="onGalleryImageChoosen('img/g.jpg')">
+        <img src="img/h.jpg" onclick="onGalleryImageChoosen('img/h.jpg')">
+        <img src="img/i.jpg" onclick="onGalleryImageChoosen('img/i.jpg')">
+        <img src="img/j.jpg" onclick="onGalleryImageChoosen('img/j.jpg')">
+        <img src="img/k.png" onclick="onGalleryImageChoosen('img/k.png')">
+        <img src="img/l.gif" onclick="onGalleryImageChoosen('img/l.gif')">
+        <img src="img/n.jpg" onclick="onGalleryImageChoosen('img/n.jpg')">
+        <img src="img/o.jpg" onclick="onGalleryImageChoosen('img/o.jpg')">
+        <img src="img/p.jpg" onclick="onGalleryImageChoosen('img/p.jpg')">
+        <img src="img/q.jpg" onclick="onGalleryImageChoosen('img/q.jpg')">
+        <img src="img/r.jpg" onclick="onGalleryImageChoosen('img/r.jpg')">
+      </div>
+    </div>
+
+  <div style="float: left; display: block; width: 305px; padding-left: 15px; margin-top: 8px">
+    <div style="margin-top: 10px; float: left;"> 
+      <div class="tiny-color"></div>
+      <div class="tiny-color"></div>
+      <div class="tiny-color"></div><br>
+      <div class="tiny-color"></div>
+      <div class="tiny-color" style="border: 4px solid black;"></div>
+      <div class="tiny-color"></div><br>
+      <div class="tiny-color"></div>
+      <div class="tiny-color"></div>
+      <div class="tiny-color"></div>
+    </div>
+
+    <pre style="float: left; padding-left: 6px; display: block; font-size: 22px; margin-top: 27px;">x</pre>
+
+    <pre style="float: left; display: block; font-size: 90px; margin-top: -20px; margin-left: -15px;">[</pre>
+
+    <!-- Matrix data -->
+    <pre id="fn" style="float: left; display: block; font-size: 15px; margin-left: -22px; align-items: flex-start; text-align: center;">0,0,0<br>0,1,0<br>0,0,0</pre>
+
+    <pre style="float: left; display: block; font-size: 90px; margin-top: -20px; margin-left: -15px;" >]</pre>
+
+    <pre style="float: left; margin-left: -10px; display: block; font-size: 30px; margin-top: 25px;">=</pre>
+
+    <div style="float: left; margin-top: 10px; margin-left: 10px; padding-left: 10px; width: 66px; height: 66px; background-color: linen; border: 2px solid black; box-sizing: border-box;"> 
     </div>
   </div>
 
-  <!-- Changed image -->
-  <div class="bg">
-    <canvas id="changed-image"></canvas>
-    <canvas id="changed-image-overlay"></canvas>
-  </div>
-
-  <!-- Recipes/ presets - far right -->
-  <div id="button-contain">
-    <label for="buttons">Recipes</label><br>
-    <div id="buttons"></div>
-  </div>
-
-  <!-- Actions - deselect, multiply etc -->
-  <div id="actions">
-    <label for="actions">Actions</label><br>
-    <button class="action" id="cursor">
-      <img height="60px" class="cursor-img" id="cursor-img" src="img/pointer.png">
-    </button>
-    <br>
-    <button class="action" id="zed-action">
-      <img class="symbol-img" id="zed-img" src="img/zero.png">
-      <img class="symbol-img" id="zed-img copy" src="img/zero.png">
-    </button>
-    <br>
-    <button class="action" id="pos-action">
-      <img class="symbol-img integer-action-img" id="pos-img" src="img/times.png">
-      <img class="symbol-img integer-action-img" id="pos-img copy" src="img/times.png">
-      <input class="integer-action" id="pos" min="1" max="9" type="number" value="5">
-    </button>
-    <br>
-    <button class="action" id="neg-action">
-      <img class="symbol-img integer-action-img" id="neg-img" src="img/times.png">
-      <img class="symbol-img integer-action-img" id="neg-img copy" src="img/times.png">
-      <input class="integer-action" id="neg" min="-9" max="-1" type="number" value="-5">
-    </button>
-    <br>
-    <button class="action" id="rand-action">
-      <img height="60px" class="rand-img" id="rand-img" src="img/random.png">
-    </button>
-    <br>
-    <button class="action" id="reset">Reset</button>
-    <br>
-    <button class="action" id="print-action">
-      <img height="60px" class="print-img" id="print-img" src="img/print.png">
-    </button>
-  </div>
-
-  <!-- Image gallery -->
-  <div id="choose-img">
-    <span id="choose-txt">Choose an image</span>
-    <div id="img-gallery">
-      <img src="img/a.jpg" onclick="onGalleryImageChoosen('img/a.jpg')">
-      <img src="img/b.jpg" onclick="onGalleryImageChoosen('img/b.jpg')">
-      <img src="img/c.jpg" onclick="onGalleryImageChoosen('img/c.jpg')">
-      <img src="img/d.jpg" onclick="onGalleryImageChoosen('img/d.jpg')">
-      <img src="img/bread-60.png" onclick="onGalleryImageChoosen('img/bread-60.png')">
-      <img src="img/e.jpg" onclick="onGalleryImageChoosen('img/e.jpg')">
-      <img src="img/f.jpg" onclick="onGalleryImageChoosen('img/f.jpg')">
-      <img src="img/g.jpg" onclick="onGalleryImageChoosen('img/g.jpg')">
-      <img src="img/h.jpg" onclick="onGalleryImageChoosen('img/h.jpg')">
-      <img src="img/i.jpg" onclick="onGalleryImageChoosen('img/i.jpg')">
-      <img src="img/j.jpg" onclick="onGalleryImageChoosen('img/j.jpg')">
-      <img src="img/k.png" onclick="onGalleryImageChoosen('img/k.png')">
-      <img src="img/l.gif" onclick="onGalleryImageChoosen('img/l.gif')">
-      <img src="img/n.jpg" onclick="onGalleryImageChoosen('img/n.jpg')">
-      <img src="img/o.jpg" onclick="onGalleryImageChoosen('img/o.jpg')">
-      <img src="img/p.jpg" onclick="onGalleryImageChoosen('img/p.jpg')">
-      <img src="img/q.jpg" onclick="onGalleryImageChoosen('img/q.jpg')">
-      <img src="img/r.jpg" onclick="onGalleryImageChoosen('img/r.jpg')">
-    </div>
-  </div>
-
-
+</div>
 </body>
-<!--
-<script type="text/javascript" src="js/actions.js"></script>
- -->
+
+<script type="text/javascript" src="canvas-mouse/src/canvas-mouse.js"></script>
 
 <script type="text/javascript" src="js/util.js"></script>
 <script type="text/javascript" src="js/CanvasImage.js"></script>
 <script type="text/javascript" src="js/matrix.js"></script>
+<script type="text/javascript" src="js/actions.js"></script>
 <script type="text/javascript" src="js/recipes.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 
