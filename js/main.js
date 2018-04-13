@@ -64,38 +64,32 @@ function installIdentityHandlers() {
     const canvas = $('identity-image-overlay');
     const context = canvas.getContext('2d'); 
 
-    var cm = new CanvasMouse(context, {
-      handleScale: true,
-      handleTransforms: true
-    });
-
-    var pos = cm.getPos(e);
+    // const mouseX = e.pageX - e.offsetX;
+    // const mouseY = e.pageY - e.offsetY;
+    const mouseX = e.offsetX;
+    const mouseY = e.offsetY;
 
     context.clearRect(0, 0, canvas.width, canvas.height);
-    // context.beginPath();
-    // context.moveTo(canvas.width, 0);
-    // context.lineTo(pos.x+3, pos.y-13);
-    // context.moveTo(canvas.width, canvas.height);
-    // context.lineTo(pos.x+3, pos.y);
-    // context.stroke();
 
-    var pxData = identityImage.context.getImageData(pos.x, pos.y, 3, 3).data;
+    var pxData = identityImage.context.getImageData(mouseX, mouseY, 3, 3).data;
 
-    // context.lineWidth=0.25;
+    // context.lineWidth = 1;
+    context.imageSmoothingEnabled = false; 
+    context.mozImageSmoothingEnabled = false; 
+    context.webkitImageSmoothingEnabled = false; 
+    context.msImageSmoothingEnabled = false; 
     
-    context.strokeRect(pos.x-21, pos.y-13, 8, 4);
-    context.strokeRect(pos.x-13, pos.y-13, 8, 4);
-    context.strokeRect(pos.x-5, pos.y-13, 8, 4);
+    context.strokeRect(mouseX-21, mouseY-13, 6, 3);
+    context.strokeRect(mouseX-13, mouseY-13, 8, 4);
+    context.strokeRect(mouseX-5, mouseY-13, 8, 4);
 
-    context.strokeRect(pos.x-21, pos.y-9, 8, 4);
-    context.strokeRect(pos.x-13, pos.y-9, 8, 4);    
-    context.strokeRect(pos.x-5, pos.y-9, 8, 4);
+    context.strokeRect(mouseX-21, mouseY-9, 8, 4);
+    context.strokeRect(mouseX-13, mouseY-9, 8, 4);    
+    context.strokeRect(mouseX-5, mouseY-9, 8, 4);
     
-    context.strokeRect(pos.x-21, pos.y-5, 8, 4);
-    context.strokeRect(pos.x-13, pos.y-5, 8, 4);
-    context.strokeRect(pos.x-5, pos.y-5, 8, 4);
-
-    context.lineWidth=1;
+    context.strokeRect(mouseX-21, mouseY-5, 8, 4);
+    context.strokeRect(mouseX-13, mouseY-5, 8, 4);
+    context.strokeRect(mouseX-5, mouseY-5, 8, 4);
 
     showMatrixColors(pxData);
 
@@ -110,7 +104,7 @@ function installIdentityHandlers() {
     zoomcontext.msImageSmoothingEnabled = false; 
 
     zoomcontext.drawImage(
-      $("identity-image"), Math.abs(pos.x - 5), Math.abs(pos.y - 5), 10, 10,
+      $("identity-image"), Math.abs(mouseX), Math.abs(mouseY), 15, 15,
       0, 0, 300, 150
     );
   };

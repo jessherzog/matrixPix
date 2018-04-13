@@ -13,11 +13,13 @@ function CanvasImage(canvas, src) {
     context.webkitImageSmoothingEnabled = false; 
     context.msImageSmoothingEnabled = false; 
 
-    context.save();
+      context.save();
+      
       context.drawImage(i, 0, 0, i.width, i.height, 0, 0, 300, 300);
       that.original = that.getData(); // remember the original pixels
       $('choose-img').setAttribute("style", "width: " + canvas.width + "px");
       $('img-gallery').setAttribute("style", "width: " + canvas.width + "px");
+      
       context.restore();
     };
 
