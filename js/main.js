@@ -59,7 +59,7 @@ function onGalleryImageChoosen(src) {
 function installIdentityHandlers() {
   $("identity-image-overlay").onmousemove = (e) => {
 
-    document.body.style.cursor = 'none';
+    $("identity-image-overlay").setAttribute("style", "cursor: none;");
     
     const canvas = $('identity-image-overlay');
     const context = canvas.getContext('2d'); 
@@ -73,25 +73,16 @@ function installIdentityHandlers() {
 
     var pxData = identityImage.context.getImageData(mouseX, mouseY, 3, 3).data;
 
-    // context.lineWidth = 1;
     context.imageSmoothingEnabled = false; 
     context.mozImageSmoothingEnabled = false; 
     context.webkitImageSmoothingEnabled = false; 
     context.msImageSmoothingEnabled = false; 
-    
-    context.strokeRect(mouseX-21, mouseY-13, 6, 3);
-    context.strokeRect(mouseX-13, mouseY-13, 8, 4);
-    context.strokeRect(mouseX-5, mouseY-13, 8, 4);
 
-    context.strokeRect(mouseX-21, mouseY-9, 8, 4);
-    context.strokeRect(mouseX-13, mouseY-9, 8, 4);    
-    context.strokeRect(mouseX-5, mouseY-9, 8, 4);
-    
-    context.strokeRect(mouseX-21, mouseY-5, 8, 4);
-    context.strokeRect(mouseX-13, mouseY-5, 8, 4);
-    context.strokeRect(mouseX-5, mouseY-5, 8, 4);
+    context.lineWidth = 1;
+    context.globalAlpha = 1.0;
+    context.strokeRect(mouseX-20, mouseY-20, 17, 17);
 
-    showMatrixColors(pxData);
+    // showMatrixColors(pxData);
 
     ///////////
 
@@ -104,22 +95,36 @@ function installIdentityHandlers() {
     zoomcontext.msImageSmoothingEnabled = false; 
 
     zoomcontext.drawImage(
-      $("identity-image"), Math.abs(mouseX), Math.abs(mouseY), 15, 15,
+      $("identity-image"), Math.abs(mouseX-19), Math.abs(mouseY-19), 15, 15,
       0, 0, 300, 150
     );
+
+    zoomcontext.beginPath();
+    zoomcontext.moveTo(zoomcanvas.width/3, 0);
+    zoomcontext.lineTo(zoomcanvas.width/3, zoomcanvas.height);
+    zoomcontext.moveTo(zoomcanvas.width - zoomcanvas.width/3, zoomcanvas.height);
+    zoomcontext.lineTo(zoomcanvas.width - zoomcanvas.width/3, 0);
+
+    zoomcontext.moveTo(0, zoomcanvas.height/3);
+    zoomcontext.lineTo(zoomcanvas.width, zoomcanvas.height/3);
+    zoomcontext.moveTo(zoomcanvas.width, zoomcanvas.height - zoomcanvas.height/3);
+    zoomcontext.lineTo(0, zoomcanvas.height - zoomcanvas.height/3);
+
+    zoomcontext.stroke();
+
   };
 
-  function showMatrixColors(pxData) {
-    $('m00').setAttribute("style", "background-color: rgb(" + pxData[0] + "," + pxData[1] + "," + pxData[2] + ");"); 
-    $('m01').setAttribute("style", "background-color: rgb(" + pxData[4] + "," + pxData[5] + "," + pxData[6] + ");"); 
-    $('m02').setAttribute("style", "background-color: rgb(" + pxData[8] + "," + pxData[9] + "," + pxData[10] + ");"); 
-    $('m10').setAttribute("style", "background-color: rgb(" + pxData[12] + "," + pxData[13] + "," + pxData[14] + ");"); 
-    $('m11').setAttribute("style", "background-color: rgb(" + pxData[16] + "," + pxData[17] + "," + pxData[18] + ");"); 
-    $('m12').setAttribute("style", "background-color: rgb(" + pxData[20] + "," + pxData[21] + "," + pxData[22] + ");"); 
-    $('m20').setAttribute("style", "background-color: rgb(" + pxData[24] + "," + pxData[25] + "," + pxData[26] + ");"); 
-    $('m21').setAttribute("style", "background-color: rgb(" + pxData[28] + "," + pxData[29] + "," + pxData[30] + ");"); 
-    $('m22').setAttribute("style", "background-color: rgb(" + pxData[32] + "," + pxData[33] + "," + pxData[34] + ");"); 
-  }
+  // function showMatrixColors(pxData) {
+  //   $('m00').setAttribute("style", "background-color: rgb(" + pxData[0] + "," + pxData[1] + "," + pxData[2] + ");"); 
+  //   $('m01').setAttribute("style", "background-color: rgb(" + pxData[4] + "," + pxData[5] + "," + pxData[6] + ");"); 
+  //   $('m02').setAttribute("style", "background-color: rgb(" + pxData[8] + "," + pxData[9] + "," + pxData[10] + ");"); 
+  //   $('m10').setAttribute("style", "background-color: rgb(" + pxData[12] + "," + pxData[13] + "," + pxData[14] + ");"); 
+  //   $('m11').setAttribute("style", "background-color: rgb(" + pxData[16] + "," + pxData[17] + "," + pxData[18] + ");"); 
+  //   $('m12').setAttribute("style", "background-color: rgb(" + pxData[20] + "," + pxData[21] + "," + pxData[22] + ");"); 
+  //   $('m20').setAttribute("style", "background-color: rgb(" + pxData[24] + "," + pxData[25] + "," + pxData[26] + ");"); 
+  //   $('m21').setAttribute("style", "background-color: rgb(" + pxData[28] + "," + pxData[29] + "," + pxData[30] + ");"); 
+  //   $('m22').setAttribute("style", "background-color: rgb(" + pxData[32] + "," + pxData[33] + "," + pxData[34] + ");"); 
+  // }
 
   $("identity-image-overlay").onmouseleave = (e)=>{
     const canvas = $('identity-image-overlay');
