@@ -142,7 +142,16 @@ function addRecipeButtons() {
 
     b.onclick = function() {
       setConvolutionMatrix(m.data, m.divisor, m.offset);
-      $('fn').innerHTML = m.data[0] + '<br>' + m.data[1] + '<br>' + m.data[2];
+
+      $('fn-00').innerHTML = m.data[0][0];
+      $('fn-01').innerHTML = m.data[0][1];
+      $('fn-02').innerHTML = m.data[0][2];
+      $('fn-10').innerHTML = m.data[1][0];
+      $('fn-11').innerHTML = m.data[1][1];
+      $('fn-12').innerHTML = m.data[1][2];
+      $('fn-20').innerHTML = m.data[2][0];
+      $('fn-21').innerHTML = m.data[2][1];
+      $('fn-22').innerHTML = m.data[2][2];
     };
     
     $('buttons').appendChild(b);

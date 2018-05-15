@@ -55,17 +55,13 @@ function onGalleryImageChoosen(src) {
 
 /////////////////////////////////////
 // Setup
-
-function installIdentityHandlers() {
-  $("identity-image-overlay").onmousemove = (e) => {
+  function identityHover(e) {  
 
     $("identity-image-overlay").setAttribute("style", "cursor: none;");
     
     const canvas = $('identity-image-overlay');
     const context = canvas.getContext('2d'); 
 
-    // const mouseX = e.pageX - e.offsetX;
-    // const mouseY = e.pageY - e.offsetY;
     const mouseX = e.offsetX;
     const mouseY = e.offsetY;
 
@@ -99,32 +95,152 @@ function installIdentityHandlers() {
       0, 0, 300, 150
     );
 
-    zoomcontext.beginPath();
-    zoomcontext.moveTo(zoomcanvas.width/3, 0);
-    zoomcontext.lineTo(zoomcanvas.width/3, zoomcanvas.height);
-    zoomcontext.moveTo(zoomcanvas.width - zoomcanvas.width/3, zoomcanvas.height);
-    zoomcontext.lineTo(zoomcanvas.width - zoomcanvas.width/3, 0);
-
-    zoomcontext.moveTo(0, zoomcanvas.height/3);
-    zoomcontext.lineTo(zoomcanvas.width, zoomcanvas.height/3);
-    zoomcontext.moveTo(zoomcanvas.width, zoomcanvas.height - zoomcanvas.height/3);
-    zoomcontext.lineTo(0, zoomcanvas.height - zoomcanvas.height/3);
-
-    zoomcontext.stroke();
+    //// LINES OR NO LINES ?
+    // zoomcontext.beginPath();
+    // zoomcontext.moveTo(zoomcanvas.width/3, 0);
+    // zoomcontext.lineTo(zoomcanvas.width/3, zoomcanvas.height);
+    // zoomcontext.moveTo(zoomcanvas.width - zoomcanvas.width/3, zoomcanvas.height);
+    // zoomcontext.lineTo(zoomcanvas.width - zoomcanvas.width/3, 0);
+    // zoomcontext.moveTo(0, zoomcanvas.height/3);
+    // zoomcontext.lineTo(zoomcanvas.width, zoomcanvas.height/3);
+    // zoomcontext.moveTo(zoomcanvas.width, zoomcanvas.height - zoomcanvas.height/3);
+    // zoomcontext.lineTo(0, zoomcanvas.height - zoomcanvas.height/3);
+    // zoomcontext.stroke();
 
   };
 
+
+
+
+
+  function changedHover(e) {  
+
+    $("changed-image-overlay").setAttribute("style", "cursor: none;");
+    
+    const canvas = $('changed-image-overlay');
+    const context = canvas.getContext('2d'); 
+
+    const mouseX = e.offsetX;
+    const mouseY = e.offsetY;
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // var pxData = identityImage.context.getImageData(mouseX-20, mouseY-20, 25, 25).data;
+
+    context.imageSmoothingEnabled = false; 
+    context.mozImageSmoothingEnabled = false; 
+    context.webkitImageSmoothingEnabled = false; 
+    context.msImageSmoothingEnabled = false; 
+
+    context.lineWidth = 1;
+    context.globalAlpha = 1.0;
+    context.strokeRect(mouseX-20, mouseY-20, 17, 17);
+
   // function showMatrixColors(pxData) {
-  //   $('m00').setAttribute("style", "background-color: rgb(" + pxData[0] + "," + pxData[1] + "," + pxData[2] + ");"); 
-  //   $('m01').setAttribute("style", "background-color: rgb(" + pxData[4] + "," + pxData[5] + "," + pxData[6] + ");"); 
-  //   $('m02').setAttribute("style", "background-color: rgb(" + pxData[8] + "," + pxData[9] + "," + pxData[10] + ");"); 
-  //   $('m10').setAttribute("style", "background-color: rgb(" + pxData[12] + "," + pxData[13] + "," + pxData[14] + ");"); 
-  //   $('m11').setAttribute("style", "background-color: rgb(" + pxData[16] + "," + pxData[17] + "," + pxData[18] + ");"); 
-  //   $('m12').setAttribute("style", "background-color: rgb(" + pxData[20] + "," + pxData[21] + "," + pxData[22] + ");"); 
-  //   $('m20').setAttribute("style", "background-color: rgb(" + pxData[24] + "," + pxData[25] + "," + pxData[26] + ");"); 
-  //   $('m21').setAttribute("style", "background-color: rgb(" + pxData[28] + "," + pxData[29] + "," + pxData[30] + ");"); 
-  //   $('m22').setAttribute("style", "background-color: rgb(" + pxData[32] + "," + pxData[33] + "," + pxData[34] + ");"); 
+  //   $('m00').setAttribute("style", "background-color: rgb(" + pxData[120] + "," + pxData[120] + "," + pxData[120] + ");"); 
+  //   $('m01').setAttribute("style", "background-color: rgb(" + pxData[140] + "," + pxData[140] + "," + pxData[140] + ");"); 
+  //   $('m02').setAttribute("style", "background-color: rgb(" + pxData[160] + "," + pxData[160] + "," + pxData[160] + ");"); 
+  //   $('m10').setAttribute("style", "background-color: rgb(" + pxData[220] + "," + pxData[220] + "," + pxData[220] + ");"); 
+  //   $('m11').setAttribute("style", "background-color: rgb(" + pxData[240] + "," + pxData[240] + "," + pxData[240] + ");"); 
+  //   $('m12').setAttribute("style", "background-color: rgb(" + pxData[260] + "," + pxData[260] + "," + pxData[260] + ");"); 
+  //   $('m20').setAttribute("style", "background-color: rgb(" + pxData[320] + "," + pxData[320] + "," + pxData[320] + ");"); 
+  //   $('m21').setAttribute("style", "background-color: rgb(" + pxData[340] + "," + pxData[340] + "," + pxData[340] + ");"); 
+  //   $('m22').setAttribute("style", "background-color: rgb(" + pxData[360] + "," + pxData[360] + "," + pxData[360] + ");"); 
   // }
+
+  //   showMatrixColors(pxData);
+
+    ///////////
+
+    var zoomcanvas = $('zoom-changed');
+    var zoomcontext = zoomcanvas.getContext('2d');
+
+    zoomcontext.imageSmoothingEnabled = false; 
+    zoomcontext.mozImageSmoothingEnabled = false; 
+    zoomcontext.webkitImageSmoothingEnabled = false; 
+    zoomcontext.msImageSmoothingEnabled = false; 
+
+    var x = Math.abs(mouseX-19);
+    var y = Math.abs(mouseY-19);
+
+    zoomcontext.drawImage(
+      $("changed-image"), x, y, 15, 15,
+      0, 0, 300, 150
+    );
+
+    
+    // pos.x = x;
+    // pos.y = y;
+
+    var myImageData = zoomcontext.getImageData(0, 0, zoomcanvas.width, zoomcanvas.height);
+    var data = myImageData.data;
+
+    // for (var i = 0; i < data.length; i += 80) {
+      // data[i]     = 255 - data[i];     // red
+      // zoomcontext.font = "50px Arial";
+      // zoomcontext.fillText("0", 15, 15);
+    // }
+
+
+    //// LINES OR NO LINES ?
+    // zoomcontext.beginPath();
+    // zoomcontext.moveTo(zoomcanvas.width/3, 0);
+    // zoomcontext.lineTo(zoomcanvas.width/3, zoomcanvas.height);
+    // zoomcontext.moveTo(zoomcanvas.width - zoomcanvas.width/3, zoomcanvas.height);
+    // zoomcontext.lineTo(zoomcanvas.width - zoomcanvas.width/3, 0);
+    // zoomcontext.moveTo(0, zoomcanvas.height/3);
+    // zoomcontext.lineTo(zoomcanvas.width, zoomcanvas.height/3);
+    // zoomcontext.moveTo(zoomcanvas.width, zoomcanvas.height - zoomcanvas.height/3);
+    // zoomcontext.lineTo(0, zoomcanvas.height - zoomcanvas.height/3);
+    // zoomcontext.stroke();
+
+
+    // $("changed-image-overlay").onclick = (e) => {
+    //   //click, save that coordinate.
+
+
+    //     // Use an input to show the current value and let
+    //     // the user set a new one
+    //     var input = document.getElementById("theValue");
+
+    //     // Reading the value, which was store as "theValue"
+    //     if (localStorage && 'theValue' in localStorage) {
+    //       input.value = localStorage.theValue;
+    //     }
+
+    //     document.getElementById("setValue").onclick = function () {
+    //       // Writing the value
+    //       localStorage && (localStorage.theValue = input.value);
+    //     };
+
+    //   context.font = "20px Arial";
+    //   context.fillText("🔒", 10, 30);
+
+    //   zoomcontext.drawImage(
+    //     $("changed-image"), x, y, 15, 15,
+    //     0, 0, 300, 150
+    //   );
+
+    //   //click again, unsaves
+    // }
+
+  };
+
+
+function installIdentityHandlers() {
+  $("identity-image-overlay").onmousemove = (e) => {
+
+    identityHover(e);
+    changedHover(e);
+
+  };
+
+  $("changed-image-overlay").onmousemove = (e) => {
+
+    identityHover(e);
+    changedHover(e);
+
+  };
 
   $("identity-image-overlay").onmouseleave = (e)=>{
     const canvas = $('identity-image-overlay');

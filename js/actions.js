@@ -1,3 +1,7 @@
+function myPrint(){
+  window.print();
+}
+
 $('rand-action').onclick = function(){
   $('m00').value = Math.floor(Math.random() * 19) - 9;
   $('m01').value = Math.floor(Math.random() * 19) - 9;
@@ -11,7 +15,15 @@ $('rand-action').onclick = function(){
   $('m21').value = Math.floor(Math.random() * 19) - 9;
   $('m22').value = Math.floor(Math.random() * 19) - 9;
 
-  $('fn').innerHTML = $('m00').value + ',' + $('m01').value + ',' + $('m02').value + '<br>' + $('m10').value + ',' + $('m11').value + ',' + $('m12').value + '<br>' + $('m20').value + ',' + $('m21').value + ',' + $('m22').value;
+  $('fn-00').innerHTML = $('m00').value;
+  $('fn-01').innerHTML = $('m01').value;
+  $('fn-02').innerHTML = $('m02').value;
+  $('fn-10').innerHTML = $('m10').value;
+  $('fn-11').innerHTML = $('m11').value;
+  $('fn-12').innerHTML = $('m12').value;
+  $('fn-20').innerHTML = $('m20').value;
+  $('fn-21').innerHTML = $('m21').value;
+  $('fn-22').innerHTML = $('m22').value;
 
   onMatrixChange();
 };
@@ -30,7 +42,16 @@ $('reset').onclick = function(){
   $('m21').value = '0';
   $('m22').value = '0';
 
-  $('fn').innerHTML = $('m00').value + ',' + $('m01').value + ',' + $('m02').value + '<br>' + $('m10').value + ',' + $('m11').value + ',' + $('m12').value + '<br>' + $('m20').value + ',' + $('m21').value + ',' + $('m22').value;
+  $('fn-00').innerHTML = $('m00').value;
+  $('fn-01').innerHTML = $('m01').value;
+  $('fn-02').innerHTML = $('m02').value;
+  $('fn-10').innerHTML = $('m10').value;
+  $('fn-11').innerHTML = $('m11').value;
+  $('fn-12').innerHTML = $('m12').value;
+  $('fn-20').innerHTML = $('m20').value;
+  $('fn-21').innerHTML = $('m21').value;
+  $('fn-22').innerHTML = $('m22').value;
 
   changedImage.reset();
 };
+

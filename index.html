@@ -6,18 +6,25 @@
   <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 
+<style type="text/css" media="print">
+   .no-print { display: none; }
+/*   body {display:none;}
+   #changed-image {display:block;}*/
+</style>
+<script type="text/javascript" src="js/actions.js"></script>
+
 <body>
 
   <!-- Header - logo, modes -->
   <label for="canvas" id="title"><img id="title-img" src="img/title1.png"/></label>
-  <br><br><form id="modes">
+  <br><br><form id="modes" class="no-print">
     <div class="mode" id="lvl1-gray">
-      <input type="radio" name="mode" id="lvl1">
-      <label for="lvl1" style="font-family: 'system-ui';">Level 1: Grayscale</label>
+      <input type="radio" name="mode" id="lvl1" checked>
+      <label for="lvl1" style="font-family: 'system-ui';">Grayscale</label>
     </div>
     <div class="mode" id="lvl2-color">
-      <input type="radio" name="mode" id="lvl2" checked>
-      <label for="lvl2" style="font-family: 'system-ui';">Level 2: Color</label>
+      <input type="radio" name="mode" id="lvl2">
+      <label for="lvl2" style="font-family: 'system-ui';"><em>Color coming soon</em></label>
     </div>
   </form>
 
@@ -31,14 +38,16 @@
       <canvas id="identity-image-overlay" width="300px" height="300px"></canvas>
     </div>
 
-    <div class="matrixboxholder" id="m-holder">
+    <div class="matrixboxholder no-print" id="m-holder">
 
-      <div class="zoom" style="float: left; position: relative; margin-right: 5px">
+      <div id="zoom-identity-hov" class="zoom" style="float: left; position: relative; margin-right: 5px">
         <canvas id="zoom-identity" style="width: 110px; height: 108px;"></canvas>
       </div>
-      <div class="zoom" style="float: left; position: relative; margin-left: 5px">
-        <canvas id="zoom-changed" width="110px" height="108px"></canvas>
+      <div id="zoom-changed-hov" class="zoom" style="float: left; position: relative; margin-left: 3px">
+        <canvas id="zoom-changed" style="width: 110px; height: 108px;"></canvas>
       </div>
+
+      <pre style="margin-left: -5px; padding-top: 180px; font-size: 20px"><strong>x</strong></pre>
 
       <div class="matrixbox" id="m">
           <span id="m00-txt" class="input-txt"></span>
@@ -68,7 +77,12 @@
           <span id="m22-txt" class="input-txt"></span>
           <input id="m22" min="-99" max="99" type="number" value="0" class="matrixinput">
       </div>
+
+      <pre style="margin-left:220px; padding-top: 5px; font-size: 30px"><strong>=</strong></pre>
+
     </div>
+
+
 
     <!-- Changed image -->
 
@@ -78,24 +92,24 @@
       </div>
 
       <div id="actions">
-        <button class="action" id="rand-action">
+        <button class="action no-print" id="rand-action">
           <img height="60px" class="rand-img" id="rand-img" src="img/random.png">
         </button>
-        <button class="action" id="reset">Reset</button>
-        <button class="action" id="print-action">
+        <button class="action no-print" id="reset">Reset</button>
+        <button class="action no-print" id="print-action" onclick="myPrint()">
           <img height="60px" class="print-img" id="print-img" src="img/print.png">
         </button>
       </div>
 
 
     <!-- Recipes/ presets - far right -->
-    <div id="button-contain">
+    <div class="no-print" id="button-contain">
       <label for="buttons" style="font-family: 'system-ui';">Recipes</label><br>
       <div id="buttons"></div>
     </div>
 
     <!-- Image gallery -->
-    <div id="choose-img">
+    <div class="no-print" id="choose-img">
       <span id="choose-txt" style="font-family: 'system-ui';">Choose an image</span>
       <div id="img-gallery">
         <img src="img/a.jpg" onclick="onGalleryImageChoosen('img/a.jpg')">
@@ -119,33 +133,19 @@
       </div>
     </div>
 
-  <div style="float: left; display: block; width: 305px; padding-left: 15px; margin-top: 8px">
-    <div style="margin-top: 10px; float: left;"> 
-      <div class="tiny-color"></div>
-      <div class="tiny-color"></div>
-      <div class="tiny-color"></div><br>
-      <div class="tiny-color"></div>
-      <div class="tiny-color" style="border: 4px solid black;"></div>
-      <div class="tiny-color"></div><br>
-      <div class="tiny-color"></div>
-      <div class="tiny-color"></div>
-      <div class="tiny-color"></div>
-    </div>
+<!--     <div id="fn" style="float: left; display: block; font-size: 15px; align-items: flex-start; text-align: center;">
 
-    <pre style="float: left; padding-left: 6px; display: block; font-size: 22px; margin-top: 27px;">x</pre>
+      <pre id="fn-00"></pre>
+      <pre id="fn-01"></pre>
+      <pre id="fn-02"></pre><br>
+      <pre id="fn-10"></pre>
+      <pre id="fn-11"></pre>
+      <pre id="fn-12"></pre><br>
+      <pre id="fn-20"></pre>
+      <pre id="fn-21"></pre>
+      <pre id="fn-22"></pre>
 
-    <pre style="float: left; display: block; font-size: 90px; margin-top: -20px; margin-left: -15px;">[</pre>
-
-    <!-- Matrix data -->
-    <pre id="fn" style="float: left; display: block; font-size: 15px; margin-left: -22px; align-items: flex-start; text-align: center;">0,0,0<br>0,1,0<br>0,0,0</pre>
-
-    <pre style="float: left; display: block; font-size: 90px; margin-top: -20px; margin-left: -15px;" >]</pre>
-
-    <pre style="float: left; margin-left: -10px; display: block; font-size: 30px; margin-top: 25px;">=</pre>
-
-    <div style="float: left; margin-top: 10px; margin-left: 10px; padding-left: 10px; width: 66px; height: 66px; background-color: linen; border: 2px solid black; box-sizing: border-box;"> 
-    </div>
-  </div>
+    </div> -->
 
 </div>
 </body>
